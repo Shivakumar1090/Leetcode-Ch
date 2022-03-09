@@ -11,25 +11,30 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if(head == NULL || head->next == NULL)return head;
-        map<int ,int> mp;
+           if(!head)
+            return head;
         
-        while(head != NULL){
-            mp[head->val]++;
-            head = head->next;
-        }
-        
-        ListNode* ans = new ListNode(-1);
-        ListNode* t = ans;
-        
-        for(auto it: mp){
-            if(it.second == 1){
-                ListNode* curr = new ListNode(it.first);
-                t->next = curr;
-                t = t->next;
+        ListNode *prev=NULL, *curr=head, *next=curr->next;
+        while(next)
+        {
+            if(curr->val == next->val)
+            {
+                while(next && next->val == curr->val)
+                    next=next->next;
+                if(!prev) // This condition means element at the head is repeating. So, head pointer needs to be shifted.
+                    head=next;
+                else
+                    prev->next = next;
             }
+            else
+            {
+                prev=curr;
+            }
+            
+            curr=next;
+            if(next)
+                next=curr->next;
         }
-        
-        return ans->next;
+        return head;
     }
 };
