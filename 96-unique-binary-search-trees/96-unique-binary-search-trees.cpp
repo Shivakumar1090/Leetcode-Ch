@@ -1,15 +1,21 @@
 class Solution {
 public:
-    int numTrees(int n) {
-        vector<int> catalan(n+1,0);
-        catalan[0] = catalan[1] = 1;
+    long long int binomialCoeff(int n, int r){
+        if(r > n-r){
+            r = n-r;
+        }
+        long long int res = 1;
         
-        for(int i = 2; i <= n; i++){
-            for(int j = 0; j < i; j++){
-                catalan[i] += catalan[j]*catalan[i-j-1];
-            }
+        for(int i = 0; i < r; i++){
+            res *= (n-i);
+            res /= (i+1);
         }
         
-        return catalan[n];
+        return res;
+    }
+    int numTrees(int n) {
+        
+        long long int val = binomialCoeff(2*n, n);
+        return val/(n+1);
     }
 };
