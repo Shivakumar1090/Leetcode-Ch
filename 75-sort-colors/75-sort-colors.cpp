@@ -3,7 +3,6 @@ public:
     void sortColors(vector<int>& nums) {
         int n = nums.size();
         
-        
         if(n > 1){
             int count_0 = count(nums.begin() , nums.end() , 0);
             int count_1 = count(nums.begin() , nums.end() , 1);
@@ -25,6 +24,5 @@ public:
                 }
             }
         }
-        // return nums;
     }
 };
