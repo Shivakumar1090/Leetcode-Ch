@@ -7,6 +7,7 @@ public:
         for(int i = 0; i < n; i++){
             currsum += nums[i];
             currsum %= k;
+            
             if(currsum == 0 && i)return true;
             
             if(prevsum.find(currsum) != prevsum.end()){
