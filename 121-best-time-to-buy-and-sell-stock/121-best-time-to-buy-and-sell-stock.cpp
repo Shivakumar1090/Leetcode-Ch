@@ -9,16 +9,6 @@ public:
             maxP = max(maxP , curr_mx-prices[i]);
         }
         
-//         for(int i = n-2; i >= 0; i--){
-//             maxR[i] = max(maxR[i+1] , prices[i]);
-//         }
-        
-//         int maxP = 0;
-        
-//         for(int i = 0; i < n; i++){
-//             maxP = max(maxR[i]-prices[i] , maxP);    
-//         }
-        
         return maxP;
     }
 };
