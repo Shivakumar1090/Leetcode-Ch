@@ -12,10 +12,11 @@ public:
             
             for(int j = i+1; j < n; j++){
                 int newTarget = target-nums[i]-nums[j];
-                
                 int start = j+1 , end = n-1;
+                
                 while(start < end){
                     int sum = nums[start]+nums[end];
+                    
                     if(sum < newTarget)start++;
                     else if(sum > newTarget)end--;
                     else{
