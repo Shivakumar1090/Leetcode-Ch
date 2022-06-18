@@ -5,15 +5,12 @@ public:
         
         while(start<end){
             if(nums[start] % 2 == 0){
-                // swap(nums[temp] , nums[start]);
                 start++;
             }
             else{
                 swap(nums[start] , nums[end]);
                 end--;
             }
-            
-            // temp++;
         }
         
         return nums;
