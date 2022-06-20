@@ -25,18 +25,16 @@ public:
         
         while(!q.empty()){
             int sz = q.size();
-            vector<Node*> v;
+            Node* ptr = NULL;
             for(int i = 0; i < sz; i++){
                 Node* curr = q.front();
                 q.pop();
-                v.push_back(curr);
+                if(ptr)ptr->next = curr;
                 if(curr->left)q.push(curr->left);
                 if(curr->right)q.push(curr->right);
+                ptr = curr;
             }
-            for(int i = 0; i < v.size(); i++){
-                if(i == sz-1)v[i]->next = NULL;
-                else v[i]->next = v[i+1];
-            }
+            ptr->next = NULL;
         }
         
         return root;
