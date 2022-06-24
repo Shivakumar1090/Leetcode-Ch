@@ -11,59 +11,27 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* temp1 = l1;
-        ListNode* temp2 = l2;
         ListNode* ans = new ListNode(-1);
         ListNode* temp = ans;
-        int prev = 0;
+        int val = 0;
         
-        while(l1 != NULL && l2 != NULL){
-            int val = l1->val+l2->val;
-            if(prev >= 1){
-                val += prev;
-                prev = 0;
+        while(l1 != NULL || l2 != NULL){
+            // int val = l1->val+l2->val;
+            val /= 10;
+            if(l1 != NULL){
+                val += l1->val;
+                l1 = l1->next;
             }
-            if(val >= 10){
-                prev = 1;
-                val = val%10;
+            if(l2 != NULL){
+                val += l2->val;
+                l2 = l2->next;
             }
-            temp -> next = new ListNode(val);
+            
+            temp -> next = new ListNode(val%10);
             temp = temp->next;
-            l1 = l1->next;
-            l2 = l2->next;
         }
         
-        while(l1 != NULL){
-            int val = l1->val;
-            if(prev >= 1){
-                val += prev;
-                prev = 0;
-            }
-            if(val >= 10){
-                prev = 1;
-                val = val%10;
-            }
-            temp -> next = new ListNode(val);
-            temp = temp->next;
-            l1 = l1->next;
-        }
-        
-        while(l2 != NULL){
-            int val = l2->val;
-            if(prev >= 1){
-                val += prev;
-                prev = 0;
-            }
-            if(val >= 10){
-                prev = 1;
-                val = val%10;
-            }
-            temp -> next = new ListNode(val);
-            temp = temp->next;
-            l2 = l2->next;
-        }
-        
-        if(prev >= 1)temp->next = new ListNode(prev);
+        if(val/10 >0)temp->next = new ListNode(1);
         
         return ans->next;
     }
