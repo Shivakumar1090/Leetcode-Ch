@@ -8,24 +8,38 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+#define pi pair<int,ListNode*>
 class Solution {
 public:
+    
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        vector<int> v;
-        for(int i = 0; i < lists.size(); i++){
+        int n = lists.size();
+        if(n == 0)return 0;
+        
+        priority_queue<pi,vector<pi>,greater<pi>> pq;
+        
+        for(int i = 0; i < n; i++){
             ListNode* curr = lists[i];
-            while(curr != NULL){
-                v.push_back(curr->val);
-                curr = curr->next;
+            
+            if(curr != NULL){
+                pq.push({curr->val , curr});
             }
         }
         
-        sort(v.begin() , v.end());
+        if(pq.size() == 0)return 0;
+        
         ListNode* ans = new ListNode(-1);
         ListNode* temp = ans;
         
-        for(int i = 0; i < v.size(); i++){
-            temp->next = new ListNode(v[i]);
+        while(!pq.empty()){
+            ListNode* curr = pq.top().second;
+            
+            if(curr->next != NULL){
+                pq.push({curr->next->val , curr->next});
+            }
+            
+            temp->next = new ListNode(curr->val);
+            pq.pop();
             temp = temp->next;
         }
         
