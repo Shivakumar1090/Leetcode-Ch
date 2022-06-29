@@ -24,7 +24,6 @@ public:
         paths(root->left,ds,ans);
         paths(root->right,ds,ans);
         
-        ds.pop_back();
         // ds.pop_back();
     }
     vector<string> binaryTreePaths(TreeNode* root) {
