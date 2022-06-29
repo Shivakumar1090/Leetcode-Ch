@@ -12,19 +12,19 @@
 class Solution {
 public:
     int ans = 0;
-    TreeNode* prev = NULL;
+    bool left = false;
     int sumOfLeftLeaves(TreeNode* root) {
         if(root == NULL)return 0;
         if(root->left){
-            prev = root;
+            left = true;
             sumOfLeftLeaves(root->left);
         }
         if(root->right){
-            prev = root;
+            left = false;
             sumOfLeftLeaves(root->right);
         }
         if(!root->left && !root->right){
-            if(prev && prev->left == root)ans += root->val;
+            if(left)ans += root->val;
         }
         return ans;
     }
