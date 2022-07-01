@@ -25,7 +25,7 @@ public:
                 last = travel;
                 
                 Node* next = temp->next;
-                // next->prev = NULL;
+                if(next)next->prev = NULL;
                 
                 temp->next = copy;
                 copy->prev = temp;
