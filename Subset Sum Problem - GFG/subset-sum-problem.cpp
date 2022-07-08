@@ -18,7 +18,6 @@ public:
     bool isSubsetSum(vector<int>arr, int sum){
         // code here 
         vector<vector<int>> dp(arr.size()+1,vector<int>(sum+1,-1));
-        
         return rec(arr,sum,0,dp);
     }
 };
