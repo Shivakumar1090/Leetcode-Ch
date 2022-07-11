@@ -1,21 +1,26 @@
 class Solution {
 public:
-    int count(vector<int> coins,int amount,int n,vector<vector<int>> &dp){
-        if(amount == 0)return 1;
-        if(n == 0)return 0;
-        
-        if(dp[n][amount] != -1)return dp[n][amount];
-        
-        if(coins[n-1] <= amount){
-            return dp[n][amount] = count(coins,amount,n-1,dp)+count(coins,amount-coins[n-1],n,dp);
-        }
-        return dp[n][amount] = count(coins,amount,n-1,dp);
-    }
     int change(int amount, vector<int>& coins) {
         vector<vector<int>> dp(coins.size()+1,vector<int>(amount+1,-1));
         
-        int c = count(coins,amount,coins.size(),dp);
-        if(c == -1)return 0;
-        return c;
+        for(int i = 0; i < coins.size()+1; i++){
+            dp[i][0] = 1;
+        }
+        
+        for(int i = 0; i < amount+1; i++){
+            dp[0][i] = 0;
+        }
+        
+        for(int i = 1; i < coins.size()+1; i++){
+            for(int j = 1; j < amount+1; j++){
+                if(coins[i-1] <= j){
+                    dp[i][j] = dp[i-1][j]+dp[i][j-coins[i-1]];
+                }
+                else
+                    dp[i][j] = dp[i-1][j];
+            }
+        }
+        
+        return dp[coins.size()][amount];
     }
 };
