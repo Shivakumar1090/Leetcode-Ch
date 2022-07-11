@@ -1,26 +1,13 @@
 class Solution {
 public:
     int change(int amount, vector<int>& coins) {
-        vector<vector<int>> dp(coins.size()+1,vector<int>(amount+1,-1));
+        int dp[amount + 1];
+        memset(dp,0,sizeof(dp));
+        dp[0] = 1;
+        for (const auto & c : coins) 
+            for (int i = c; i <= amount; ++i) 
+                dp[i] += dp[i - c];    
         
-        for(int i = 0; i < coins.size()+1; i++){
-            dp[i][0] = 1;
-        }
-        
-        for(int i = 0; i < amount+1; i++){
-            dp[0][i] = 0;
-        }
-        
-        for(int i = 1; i < coins.size()+1; i++){
-            for(int j = 1; j < amount+1; j++){
-                if(coins[i-1] <= j){
-                    dp[i][j] = dp[i-1][j]+dp[i][j-coins[i-1]];
-                }
-                else
-                    dp[i][j] = dp[i-1][j];
-            }
-        }
-        
-        return dp[coins.size()][amount];
+        return dp[amount];
     }
 };
