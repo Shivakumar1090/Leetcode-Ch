@@ -17,9 +17,20 @@ class Solution {
         return dp[m][val] = rec(s,m-1,val,dp);
     }
     long long int count(int s[], int m, int val) {
-        vector<vector<long long int>> dp(m+1,vector<long long int>(val+1,-1));
+        // vector<vector<long long int>> dp(m+1,vector<long long int>(val+1,-1));
         
-        return rec(s,m,val,dp);
+        vector<long long int> dp(val+1,0);
+        dp[0] = 1;
+        
+        for(int i = 0; i < m; i++){
+            for(int j = i; j <= val; j++){
+                if(j >= s[i])
+                dp[j] += dp[j-s[i]];
+            }
+        }
+        
+        return dp[val];
+            // return rec(s,m,val,dp);
     }
 };
 
