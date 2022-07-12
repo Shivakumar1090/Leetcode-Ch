@@ -5,20 +5,21 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-    long long int count(int S[], int m, int n) {
-        long long int dp[n+1] = {0};
-        sort(S , S+m);
-        dp[0] = 1;
+    long long int rec(int s[] , int m,int val,vector<vector<long long int>> &dp){
+        if(val == 0)return 1;
+        if(m == 0 || val < 0)return 0;
         
-        for(int i = 0; i < m; i++){
-            for(int rupees = 1; rupees <= n; rupees++){
-                if(S[i] <= rupees){
-                    dp[rupees] += dp[rupees-S[i]];
-                }
-            }
+        if(dp[m][val] != -1)return dp[m][val];
+        
+        if(s[m-1] <= val){
+            return dp[m][val] = rec(s,m-1,val,dp)+rec(s,m,val-s[m-1],dp);
         }
+        return dp[m][val] = rec(s,m-1,val,dp);
+    }
+    long long int count(int s[], int m, int val) {
+        vector<vector<long long int>> dp(m+1,vector<long long int>(val+1,-1));
         
-        return dp[n];
+        return rec(s,m,val,dp);
     }
 };
 
