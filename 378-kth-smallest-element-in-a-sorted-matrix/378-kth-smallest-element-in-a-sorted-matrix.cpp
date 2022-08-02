@@ -26,6 +26,6 @@ public:
             pq.pop();
         }
         
-        return v[k-1];
+        return -1;
     }
 };
